@@ -15,3 +15,7 @@ Se instala express para crear el servidor, con el comando:
 npm i -E express
 ```
 
+Se instala dotenv para cargar las variables de entorno, con el comando:
+```shell
+npm i -E dotenv
+```
