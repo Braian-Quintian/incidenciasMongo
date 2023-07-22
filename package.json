@@ -1,0 +1,12 @@
+{
+  "name": "incidenciascampus",
+  "version": "1.0.0",
+  "description": "Se inicia el proyecto con el comando: ```shell npm init -y ``` Se instala nodemon para que se reinicie el servidor cada vez que se haga un cambio en el código, con el comando:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
