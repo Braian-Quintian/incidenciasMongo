@@ -53,3 +53,11 @@ CREATE TABLE EstadoIncidencia (
     nombre VARCHAR(25) NOT NULL UNIQUE
 );
 
+CREATE TABLE TipoCategoria (
+    id_tipo_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    tipo_id INT NOT NULL,
+    categoria_id INT NOT NULL,
+    FOREIGN KEY (tipo_id) REFERENCES TipoIncidencia(id_tipo),
+    FOREIGN KEY (categoria_id) REFERENCES Categoria(id_categoria)
+);
+
