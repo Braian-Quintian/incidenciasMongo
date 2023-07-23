@@ -19,3 +19,15 @@ Se instala dotenv para cargar las variables de entorno, con el comando:
 ```shell
 npm i -E dotenv
 ```
+Se instala mysql2 para la conexión con la base de datos, con el comando:
+```shell
+npm i -E mysql2
+```
+Se instala class-transformer para transformar los datos que se envían al servidor, con el comando:
+```shell
+npm i -E class-transformer
+```
+Se instala class-validator para validar los datos que se envían al servidor, con el comando:
+```shell
+npm i -E class-validator
+```
