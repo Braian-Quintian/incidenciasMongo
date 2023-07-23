@@ -87,3 +87,56 @@ CREATE TABLE Incidencia (
     FOREIGN KEY (tipo_incidencia) REFERENCES TipoIncidencia(id_tipo),
     FOREIGN KEY (trainer_id) REFERENCES Trainer(id_trainer)
 );
+
+INSERT INTO TipoArea(nombre) VALUES
+('Area Training'),
+('Area Review');
+
+INSERT INTO AreaCampus (nombre, tipo_area) VALUES
+('Apolo', 1),
+('Artemis',1),
+('Sputnik',1),
+('Skylab',1),
+('Corvus', 2),
+('Endor',2);
+
+
+INSERT INTO TipoIncidencia (nombre) VALUES
+('Leve'),
+('Moderada'),
+('Crítica');
+
+INSERT INTO Categoria(nombre) VALUES
+('Hardware'),
+('Software');
+
+INSERT INTO Equipo(nombre, inventario) VALUES
+('PC1', 1),
+('PC2', 1),
+('PC3', 1),
+('PC4', 1),
+('PC5', 1);
+
+INSERT INTO EstadoIncidencia (nombre) VALUES
+('Abierta'),
+('En proceso'),
+('Cerrada'),
+('Pendiente de aprobación'),
+('Rechazada');
+
+
+INSERT INTO TipoCategoria (tipo_id, categoria_id) VALUES
+(1, 1),   -- Leve se asocia con Hardware
+(1, 2),   -- Leve se asocia con Software
+(2, 1),   -- Moderada se asocia con Hardware
+(2, 2),   -- Moderada se asocia con Software
+(3, 1),   -- Crítica se asocia con Hardware
+(3, 2);   -- Crítica se asocia con Software
+
+INSERT INTO InventarioSalon(salon) VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6);
