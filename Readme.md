@@ -40,3 +40,6 @@ Ejemplo para añadir un trainer:
   "telefono_movil_empresa":"1234567891"
 }
 ```
+
+Para usar los endpoints necesitas obtener un token de permison en:
+/autorizacion/:id/:nombre
