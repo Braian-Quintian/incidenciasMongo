@@ -71,3 +71,19 @@ CREATE TABLE Trainer (
     telefono_Empresa VARCHAR(25) NOT NULL UNIQUE,
     telefono_Movil_Empresarial VARCHAR(25) NOT NULL UNIQUE
 );
+
+CREATE TABLE Incidencia (
+    id_incidencia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    equipo_id INT NOT NULL,
+    estado_id INT NOT NULL,
+    tipo_incidencia INT NOT NULL,
+    trainer_id INT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (equipo_id) REFERENCES Equipo(id_equipo),
+    FOREIGN KEY (estado_id) REFERENCES EstadoIncidencia(id_estado),
+    FOREIGN KEY (tipo_incidencia) REFERENCES TipoIncidencia(id_tipo),
+    FOREIGN KEY (trainer_id) REFERENCES Trainer(id_trainer)
+);
