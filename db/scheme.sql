@@ -48,3 +48,8 @@ CREATE TABLE ModeloEquipo (
     FOREIGN KEY (equipo_id) REFERENCES Equipo(id_equipo)
 );
 
+CREATE TABLE EstadoIncidencia (
+    id_estado INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(25) NOT NULL UNIQUE
+);
+
