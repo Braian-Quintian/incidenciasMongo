@@ -6,3 +6,7 @@ CREATE TABLE TipoArea(
     id_tipo_area INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(25) NOT NULL UNIQUE
 );
+
+INSERT INTO TipoArea(nombre) VALUES
+('Area Training'),
+('Area Review');
