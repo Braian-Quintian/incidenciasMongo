@@ -30,3 +30,12 @@ CREATE TABLE InventarioSalon(
     FOREIGN KEY (salon) REFERENCES AreaCampus(id_area)
 );
 
+CREATE TABLE Equipo(
+    id_equipo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(25) NOT NULL UNIQUE,
+    inventario INT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (inventario) REFERENCES InventarioSalon(id_inventario)
+);
+
