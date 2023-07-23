@@ -61,3 +61,13 @@ CREATE TABLE TipoCategoria (
     FOREIGN KEY (categoria_id) REFERENCES Categoria(id_categoria)
 );
 
+CREATE TABLE Trainer (
+    id_trainer INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(25) NOT NULL,
+    email_Personal VARCHAR(25) NOT NULL UNIQUE,
+    email_Corporativo VARCHAR(25) NOT NULL UNIQUE,
+    telefono_Movil VARCHAR(25) NOT NULL UNIQUE,
+    telefono_Residencia VARCHAR(25) NOT NULL UNIQUE,
+    telefono_Empresa VARCHAR(25) NOT NULL UNIQUE,
+    telefono_Movil_Empresarial VARCHAR(25) NOT NULL UNIQUE
+);
