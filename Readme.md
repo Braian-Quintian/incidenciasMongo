@@ -27,3 +27,14 @@ Se instala class-validator para validar los datos que se envían al servidor, co
 ```shell
 npm i -E class-validator
 ```
+
+Ejemplo para añadir un trainer:
+{
+  "nombre":"Miguel",
+  "email_personal":"miguel@gmail.com",
+  "email_corporativo":"miguel@gmail.com",
+  "telefono_movil":"1234567891",
+  "telefono_residencia":"1234567891",
+  "telefono_empresa":"1234567891",
+  "telefono_movil_empresa":"1234567891"
+}
