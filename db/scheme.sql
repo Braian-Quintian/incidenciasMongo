@@ -39,3 +39,12 @@ CREATE TABLE Equipo(
     FOREIGN KEY (inventario) REFERENCES InventarioSalon(id_inventario)
 );
 
+CREATE TABLE ModeloEquipo (
+    id_modelo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    marca VARCHAR(25),
+    modelo VARCHAR(25),
+    numero_serie VARCHAR(25),
+    equipo_id INT NOT NULL,
+    FOREIGN KEY (equipo_id) REFERENCES Equipo(id_equipo)
+);
+
