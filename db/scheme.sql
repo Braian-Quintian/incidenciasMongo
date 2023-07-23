@@ -23,3 +23,10 @@ CREATE TABLE Categoria (
     id_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(25) NOT NULL UNIQUE
 );
+
+CREATE TABLE InventarioSalon(
+    id_inventario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    salon INT NOT NULL,
+    FOREIGN KEY (salon) REFERENCES AreaCampus(id_area)
+);
+
