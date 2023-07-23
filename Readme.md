@@ -29,6 +29,7 @@ npm i -E class-validator
 ```
 
 Ejemplo para añadir un trainer:
+```json
 {
   "nombre":"Miguel",
   "email_personal":"miguel@gmail.com",
@@ -38,3 +39,4 @@ Ejemplo para añadir un trainer:
   "telefono_empresa":"1234567891",
   "telefono_movil_empresa":"1234567891"
 }
+```
