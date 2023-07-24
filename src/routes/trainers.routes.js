@@ -2,9 +2,9 @@ import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { Trainer } from '../../controller/validateTrainer.js';
 import { getConnection } from '../connection/connect.js'
-import { handleInternalServerError, handleDuplicateEntryError, handleNoExist, handleInvalidDataError } from '../errors/errors.js'
+import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError, handleNonExistentError } from '../errors/errors.js'
 
-const getTrainers = async (req, res) => {
+const getTrainers = async (req,res) => {
     try {
         const connection = await getConnection();
         const query = 'SELECT * FROM Trainer';
@@ -34,7 +34,9 @@ const addTrainer = async (req, res) => {
         if (error.code === 'ER_DUP_ENTRY') {
             handleDuplicateEntryError(res);
         } else if (error.code === 'ER_NO_REFERENCED_ROW_2') {
-            handleNoExist(res);
+            handleNonExistentError(error, res);
+        } else if (error.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            handleInvalidDataError(error, res);
         } else {
             handleInternalServerError(error, res);
         }
