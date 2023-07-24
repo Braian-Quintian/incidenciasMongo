@@ -1,16 +1,16 @@
 # Incidencias Técnicas - Sistema de Gestión
 
-![Logo](./assets/img/diagrama.png)
+<!-- ![Logo](./assets/img/logo.png) -->
 
-Este proyecto es un sistema de gestión de incidencias técnicas, diseñado para registrar y controlar las incidencias relacionadas con el equipo y el personal de una organización. Permite a los usuarios crear y administrar incidencias, así como realizar un seguimiento de su estado y resolución.
+Este proyecto es un sistema de gestión de incidencias técnicas, diseñado para registrar y controlar las incidencias relacionadas con el equipo de campus. Permite a los usuarios crear y administrar incidencias, así como realizar un seguimiento de su estado y resolución.
 
 ## Características principales
 
-- Registro de usuarios y entrenadores.
+- Registro de entrenadores.
 - Gestión de equipos y su inventario.
 - Creación y seguimiento de incidencias técnicas.
 - Asignación de entrenadores a incidencias para su seguimiento.
-- Información detallada sobre el estado y la categoría de las incidencias.
+- Información sobre el estado y la categoría de las incidencias.
 - Generación de tokens de permiso para acceder a los endpoints protegidos.
 
 ## Tecnologías utilizadas
@@ -27,13 +27,27 @@ Este proyecto es un sistema de gestión de incidencias técnicas, diseñado para
 
 ![Diagrama_ER](./assets/img/diagrama.png)
 
-## Instalación y configuración
+## Dependencias que se usaron
+Se usó la `v18.16.1` de NojeJS para este proyecto
 
 1. Clone este repositorio en su máquina local.
-2. Ejecute `npm install` para instalar las dependencias del proyecto.
-3. Cree una base de datos MySQL y actualice las credenciales de conexión en el archivo `config.ts`.
-4. Ejecute el comando `npm run build` para compilar el código TypeScript a JavaScript.
-5. Inicie el servidor con `npm start`.
+2. Se pueden descargar las dependencias con el comando:
+```shell
+npm i -E express dotenv mysql2 jose typescript class-transformer class-validator
+```
+Se instala `nodemon` para que se reinicie el servidor cada vez que se haga un cambio en el código
+*Se instala nodemon en las dependecias de desarrollo*
+Se instala `express` para crear el servidor
+Se instala `dotenv` para cargar las variables de entorno
+Se instala `mysql2` para la conexión con la base de datos
+Se instala `jose` para la creacion de token
+Se instala `typescript` para el uso de typescript
+Se instala `class-transformer` para transformar los datos que se envían al servidor
+Se instala `class-validator` para validar los datos que se envían al servidor
+3. Para correr el servidor se usa el comando:
+```shell
+npm run dev
+```
 
 ## Uso
 
