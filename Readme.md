@@ -40,6 +40,35 @@ Ejemplo para añadir un trainer:
   "telefono_movil_empresa":"1234567891"
 }
 ```
+Ejemplo para añadir un equipo:
+```json
+{
+  "nombre": "Laptop",
+  "marca": "hp",
+  "modelo": "ELITEBOOK",
+  "numero_serie": "7KWY"
+}
+```
+Ejemplo para añadir una incidencia:
+```json
+{
+  "fecha": "2023-07-22",
+  "descripcion": "Se ha producido un fallo en el sistema",
+  "equipo_id":1,
+  "estado_id":2,
+  "tipo_incidencia":3,
+  "trainer_id":1,
+  "categoria_id":1 
+}
+```
 
 Para usar los endpoints necesitas obtener un token de permison en:
 /autorizacion/:id/:nombre
+
+Endpoint para traer todas las incidencias
+METHOD GET:
+http://127.127.127.127:5050/incidencias/
+Para traer la incidencia con el id del equipo afectado:
+http://127.127.127.127:5050/incidencias/id
+donde id es el identificador del equipo afectado
+
