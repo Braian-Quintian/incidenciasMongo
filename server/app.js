@@ -1,10 +1,10 @@
 import express from 'express';
 import { router as Trainers } from '../src/middlewares/trainers.js';
-import { generateToken } from '../src/middlewares/autorizacion.js';
-import { verifyToken } from '../src/middlewares/verifyToken.js';
-
+import { router as Equipo } from '../src/middlewares/equipo.js';
+import { router as Incidencias } from '../src/middlewares/incidencias.js';
+import { generateToken } from '../src/keys/autorizacion.js';
+import { verifyToken } from '../src/keys/verifyToken.js';
 import { handleInternalServerError } from '../src/errors/errors.js';
-
 const app = express();
 app.use(express.json());
 
@@ -21,9 +21,8 @@ app.get('/autorizacion/:id/:nombre', async (req, res) => {
 });
 
 app.use('/trainers', verifyToken, Trainers);
-
-app.use((err, res) => {
-  handleInternalServerError(err, res);
-});
+app.use('/equipos', verifyToken, Equipo);
+app.use('/incidencias',verifyToken, Incidencias);
+app.use((err, res) => { handleInternalServerError(err, res)});
 
 export default app;
