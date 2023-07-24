@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Expose } from "class-transformer";
+import { Expose, } from "class-transformer";
 import { IsString, IsEmail, Matches } from "class-validator";
 export class Trainer {
     constructor(p1, p2, p3, p4, p5, p6, p7) {
