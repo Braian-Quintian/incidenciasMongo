@@ -44,6 +44,19 @@ Se instala `jose` para la creacion de token
 Se instala `typescript` para el uso de typescript
 Se instala `class-transformer` para transformar los datos que se envían al servidor
 Se instala `class-validator` para validar los datos que se envían al servidor
+4. Configuración del archivo .env
+Escribe el puerto que vayas a utilizar:
+```js
+CONFIG = { "hostname" : "locahost", "port" : ""}
+```
+Antes de ejecutar el servidor, asegúrate de llenar los datos del archivo .env con la información de tu base de datos y las claves necesarias. El archivo .env debe tener la siguiente estructura:
+```shell
+HOST=nombre_del_host_de_tu_base_de_datos
+USUARIO=nombre_de_usuario_de_la_base_de_datos
+PASSWORD=contraseña_de_la_base_de_datos
+DATABASE=nombre_de_la_base_de_datos
+JWT_PRIVATE_KEY=clave_privada_para_generar_tokens
+```
 3. Para correr el servidor se usa el comando:
 ```shell
 npm run dev
@@ -54,10 +67,10 @@ npm run dev
 Para utilizar el sistema de gestión de incidencias técnicas, primero debe obtener un token de permiso para acceder a los endpoints protegidos. Puede obtenerlo haciendo una solicitud a la siguiente URL:
 
 ```http
-GET http://localhost:5050/autorizacion/:id/:nombre
+GET http://localhost:port/autorizacion/:id/:nombre
 ```
 Reemplace `id` y `:nombre` con los datos del usuario que va a utilizar los endpoints.
-
+`RECUERDA` Que el port tienes que haberlo definido en el .env
 Una vez que tenga el token, inclúyalo en el encabezado de sus solicitudes a los endpoints protegidos utilizando la siguiente clave-valor:
 ```http
 Authorization: Bearer tu_token_aqui
