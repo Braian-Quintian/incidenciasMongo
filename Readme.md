@@ -1,3 +1,6 @@
+### Diagrama de la base de datos
+![Diagrama_ER](./assets/img/diagrama.png)
+
 Se inicia el proyecto con el comando:
 ```shell
 npm init -y
@@ -18,6 +21,14 @@ npm i -E dotenv
 Se instala mysql2 para la conexión con la base de datos, con el comando:
 ```shell
 npm i -E mysql2
+```
+Se instala jose para la encriptación y creacion de token, con el comando:
+```shell
+npm i -E jose
+```
+Se instala typescript para el uso de typescript, con el comando:
+```shell
+npm i -E typescript
 ```
 Se instala class-transformer para transformar los datos que se envían al servidor, con el comando:
 ```shell
