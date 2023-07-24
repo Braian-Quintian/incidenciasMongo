@@ -24,41 +24,21 @@ CREATE TABLE Categoria (
     nombre VARCHAR(25) NOT NULL UNIQUE
 );
 
-CREATE TABLE InventarioSalon(
-    id_inventario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    salon INT NOT NULL,
-    FOREIGN KEY (salon) REFERENCES AreaCampus(id_area)
-);
-
 CREATE TABLE Equipo(
     id_equipo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(25) NOT NULL UNIQUE,
-    inventario INT NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (inventario) REFERENCES InventarioSalon(id_inventario)
-);
-
-CREATE TABLE ModeloEquipo (
-    id_modelo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(25) NOT NULL,
     marca VARCHAR(25),
     modelo VARCHAR(25),
-    numero_serie VARCHAR(25),
-    equipo_id INT NOT NULL,
-    FOREIGN KEY (equipo_id) REFERENCES Equipo(id_equipo)
+    numero_serie VARCHAR(25) UNIQUE,
+    salon INT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (salon) REFERENCES AreaCampus(id_area)
 );
 
 CREATE TABLE EstadoIncidencia (
     id_estado INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(25) NOT NULL UNIQUE
-);
-
-CREATE TABLE TipoCategoria (
-    id_tipo_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    tipo_id INT NOT NULL,
-    categoria_id INT NOT NULL,
-    FOREIGN KEY (tipo_id) REFERENCES TipoIncidencia(id_tipo),
-    FOREIGN KEY (categoria_id) REFERENCES Categoria(id_categoria)
 );
 
 CREATE TABLE Trainer (
@@ -80,12 +60,14 @@ CREATE TABLE Incidencia (
     estado_id INT NOT NULL,
     tipo_incidencia INT NOT NULL,
     trainer_id INT NOT NULL,
+    categoria_id INT NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (equipo_id) REFERENCES Equipo(id_equipo),
     FOREIGN KEY (estado_id) REFERENCES EstadoIncidencia(id_estado),
     FOREIGN KEY (tipo_incidencia) REFERENCES TipoIncidencia(id_tipo),
-    FOREIGN KEY (trainer_id) REFERENCES Trainer(id_trainer)
+    FOREIGN KEY (trainer_id) REFERENCES Trainer(id_trainer),
+    FOREIGN KEY (categoria_id) REFERENCES Categoria(id_categoria)
 );
 
 INSERT INTO TipoArea(nombre) VALUES
@@ -100,7 +82,6 @@ INSERT INTO AreaCampus (nombre, tipo_area) VALUES
 ('Corvus', 2),
 ('Endor',2);
 
-
 INSERT INTO TipoIncidencia (nombre) VALUES
 ('Leve'),
 ('Moderada'),
@@ -110,33 +91,9 @@ INSERT INTO Categoria(nombre) VALUES
 ('Hardware'),
 ('Software');
 
-INSERT INTO Equipo(nombre, inventario) VALUES
-('PC1', 1),
-('PC2', 1),
-('PC3', 1),
-('PC4', 1),
-('PC5', 1);
-
 INSERT INTO EstadoIncidencia (nombre) VALUES
 ('Abierta'),
 ('En proceso'),
 ('Cerrada'),
 ('Pendiente de aprobación'),
 ('Rechazada');
-
-
-INSERT INTO TipoCategoria (tipo_id, categoria_id) VALUES
-(1, 1),   -- Leve se asocia con Hardware
-(1, 2),   -- Leve se asocia con Software
-(2, 1),   -- Moderada se asocia con Hardware
-(2, 2),   -- Moderada se asocia con Software
-(3, 1),   -- Crítica se asocia con Hardware
-(3, 2);   -- Crítica se asocia con Software
-
-INSERT INTO InventarioSalon(salon) VALUES
-(1),
-(2),
-(3),
-(4),
-(5),
-(6);
