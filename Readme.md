@@ -17,7 +17,7 @@ Este proyecto es un sistema de gestión de incidencias técnicas, diseñado para
 
 - Node.js como plataforma de ejecución.
 - Express.js para la creación del servidor web.
-- MySQL como base de datos relacional.
+- Mongodb para la base de datos.
 - TypeScript para un desarrollo más estructurado.
 - class-transformer y class-validator para la validación y transformación de datos.
 - dotenv para la gestión de variables de entorno.
@@ -30,51 +30,129 @@ Este proyecto es un sistema de gestión de incidencias técnicas, diseñado para
 ## Dependencias que se usaron
 Se usó la `v18.16.1` de NojeJS para este proyecto
 
-1. Clone este repositorio en su máquina local.
-2. Se pueden descargar las dependencias con el comando:
-```shell
-npm i -E express dotenv mysql2 jose typescript class-transformer class-validator
-```
-Se instala `nodemon` para que se reinicie el servidor cada vez que se haga un cambio en el código
-*Se instala nodemon en las dependecias de desarrollo*
-Se instala `express` para crear el servidor
-Se instala `dotenv` para cargar las variables de entorno
-Se instala `mysql2` para la conexión con la base de datos
-Se instala `jose` para la creacion de token
-Se instala `typescript` para el uso de typescript
-Se instala `class-transformer` para transformar los datos que se envían al servidor
-Se instala `class-validator` para validar los datos que se envían al servidor
-4. Configuración del archivo .env
-Escribe el puerto que vayas a utilizar:
-```js
-CONFIG = { "hostname" : "locahost", "port" : ""}
-```
-Antes de ejecutar el servidor, asegúrate de llenar los datos del archivo .env con la información de tu base de datos y las claves necesarias. El archivo .env debe tener la siguiente estructura:
-```shell
-HOST=nombre_del_host_de_tu_base_de_datos
-USUARIO=nombre_de_usuario_de_la_base_de_datos
-PASSWORD=contraseña_de_la_base_de_datos
-DATABASE=nombre_de_la_base_de_datos
-JWT_PRIVATE_KEY=clave_privada_para_generar_tokens
-```
-3. Para correr el servidor se usa el comando:
-```shell
-npm run dev
+## Instalación
+1. Clona este repositorio en tu máquina local.
+2. Asegúrate de tener instalado Node.js
+3. Crea un archivo .env
+4. Copia las variables de entorno del archivo `.env.example` y pegalas en el archivo `.env` que creaste.
+
+  `Nota`: porfavor llena los campos vacios con la informacion correspondiente.
+
+  `Recuerda que la informacion solitada la debes ingresar entre las "" correspondientes`
+
+  ![.env](/assets/img/configuracion-env.png)
+
+5. Abre una terminal
+
+  ![terminal](/assets/img/terminal.png)
+
+  presiona en neva terminal:
+
+  ![nueva-terminal](/assets/img/nueva-terminal.png)
+
+6. Ejecuta el comando `npm run install` para instalar las dependencias del proyecto
+
+  una vez que haya finalizado la instalacion de las dependencias ejecuta el comando `npm run install-dev` para instalar la dependencia de desarrollo.
+
+  ![npm-run-install](/assets/img/npm-run-install.png)
+
+7. Ejecuta el comando `npx tsc --init` para crear el archivo de configuracion de typescript
+
+  ![tsc-init](/assets/img/tsc-init.png)
+
+  cambia todo el contenido del archivo tsconfig.json por este json:
+
+  ![tsconfig.json](/assets/img/tsconfig.png)
+
+```json
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "ES6",
+    "moduleResolution": "node",
+    "outDir": "./src/routes/validation/",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "./src/typescript/*.ts"
+  ],
+  "exclude": [
+    "src/routes/validation/*.js"
+  ]
+}
 ```
 
-## Uso
+`NOTA`:En caso de tener un error como este:
+  ![error](/assets/img/error-env.png)
 
-Para utilizar el sistema de gestión de incidencias técnicas, primero debe obtener un token de permiso para acceder a los endpoints protegidos. Puede obtenerlo haciendo una solicitud a la siguiente URL:
+`SOLUCION`: Simplemente borra los espacios sobrantes.
 
-```http
-GET http://localhost:port/autorizacion/:id/:nombre
+![solucion](/assets/img/solucion.png)
+
+8. Ejecuta el comando `npm run tsc` para compilar el proyecto y se creará una carpeta llamada controller que contendra la validacion de toda la data.
+  ![npm-run-tsc](/assets/img/npm-run-tsc.png)
+
+9. Una vez que finalice de compilar los archivos, termina el proceso precionando Ctrl + C
+  ![terminar-proceso](/assets/img/terminar-proceso.png)
+
+10. Ejecuta el comando `npm run dev` para iniciar el servidor
+
+​	 ![npm-install](/assets/img/npm-run-dev.png)
+
+1. ¡Felicitaciones!, ya has iniciado el servidor y la base de datos y puedes proceder a  utilizar los endpoints
+
+2. `NOTA`: Para utilizar los endpoints recuerda que debes tener un token que se genera con el endpoint `/autorizacion` (en la siguienta parte se te muestra como puedes pedir el token y utilizarlo
+
+### Observacion: Para hacer los endpoints y generar los token debes tener ThunderClient instalado en visual studio code
+
+- **Autorización**
+
+  `NOTA`: Antes de utilizar cualquier endpoint debes pedir primero un token de autorizacion, se recomienda que lo guardes en un archivo de texto.
+
+  *Obeservacion* el token solamente dura `30m`  después de este tiempo tendrás que pedir otro
+
+  Este es el ejemplo para solicitar un token:
+  ![token](/assets/img/pedirToken.png)
+
+  - El `:id` es el id del usuario (por el momento puede ser cualquiera)
+  - El `nombre_de_la_collection` es el nombre de la collection en la base de datos
+
+  `NOTA`: No olvides reemplazar el `localhost` por la ip de tu servidor y el `5050` por el puerto que hayas definido en las variables de entorno, u/o que se estes utilizando.
+
+```shell
+  http://localhost:5050/autorizacion/:id/:nombre?tabla=nombre_de_la_tabla
 ```
-Reemplace `id` y `:nombre` con los datos del usuario que va a utilizar los endpoints.
-`RECUERDA` Que el port tienes que haberlo definido en el .env
-Una vez que tenga el token, inclúyalo en el encabezado de sus solicitudes a los endpoints protegidos utilizando la siguiente clave-valor:
-```http
-Authorization: Bearer tu_token_aqui
-```
+
+`SPOILER`: se tiene pensado en el futuro reemplazar `:id` por el id de google al momento de generar el token, pero por el momento se queda así.
+
+- Implementación del Token
+    ![generar-token](assets/img/generar-token.png)
+- Copia el token, ejemplo:
+    - `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqc29uIjp7ImlkIjoiMTIzIiwibm9tYnJlIjoidXNlciIsImVuZHBvaW50Ijp7InRhYmxhIjoicm9sZXMifX0sImlhdCI6MTY5MDQ4MzExNywiZXhwIjoxNjkwNDg2NzE3fQ.2Mk17IBYsAmZi-e19E26E1oyObY43OBjBXK52ME8jvM`
+
+- Luego debe colocar en la pestaña Headers de la siguiente manera:
+  
+- donde dice `header` escribe `Authorization` y pulsa en el recuadro para que se active el envió del token de autorización, así:
+
+    ![implementacion-token](/assets/img/implementacion-token.png)
+
+- y pega el token que habias copiado previamente:
+
+    ![token-implementado](/assets/img/token-implementado.png)
+
+- Una vez que hayas implementado el token puedes proceder a utilizar los endpoints.
+
+**TENER EN CUENTA:**
+  `NOTA`: recuerda que el token solamente dura `30m`  después de este tiempo tendrás que pedir otro
+  `NOTA`: El token solo servira para la collection que lo solicitaste, si quieres acceder a otra collection deberas solicitar otro token y repetir el mismo proceso para implementarlo.
+  `NOTA`: Si presentas algun error al momento de solicitar el token, revisa que hayas ingresado correctamente los datos, si el error persiste, revisa que la collection que estas solicitando exista en la base de datos.
+
+- **LIMITES DE PETICION DE ENPOINTS**
+    
+  `NOTA`: Los endpoints tienen un limite de peticiones por minuto, si se excede el limite de peticiones por minuto, el servidor respondera con un error 429, si esto sucede, espera un minuto y vuelve a intentarlo.
+
 # Endpoints de Incidencias Técnicas
 
 A continuación, puede utilizar los siguientes endpoints para interactuar con el sistema:
