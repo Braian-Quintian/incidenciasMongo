@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon --quiet server/server.js",
     "tsc": "tsc -w",
-    "install": "npm i -E express express-rate-limit jose mongodb dotenv",
+    "install": "npm i -E express express-rate-limit typescript jose mongodb dotenv class-transformer class-validator",
     "install-dev": "npm i -D nodemon"
   },
   "keywords": [],
