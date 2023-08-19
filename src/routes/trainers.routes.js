@@ -1,19 +1,19 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { Trainer } from '../../controller/validateTrainer.js';
-import { getConnection } from '../connection/connect.js'
+import { connect } from '../connection/connection.js'
 import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError, handleNonExistentError } from '../errors/errors.js'
 
 const getTrainers = async (req,res) => {
     try {
-        const connection = await getConnection();
+        const connection = await connect();
         const query = 'SELECT * FROM Trainer';
         const [rows] = await connection.query(query);
         res.json(rows);
     } catch (error) {
         handleInternalServerError(error, res);
     }
-};
+};z
 
 const addTrainer = async (req, res) => {
     try {
@@ -25,7 +25,7 @@ const addTrainer = async (req, res) => {
             return;
         }
 
-        const connection = await getConnection();
+        const connection = await connect();
         const query = `INSERT INTO Trainer(nombre, email_Personal, email_Corporativo, telefono_Movil, telefono_Residencia, telefono_Empresa, telefono_Movil_Empresarial) VALUES (?, ?, ?, ?, ?, ?, ?)`;
         const values = [dataSend.name, dataSend.personalEmail, dataSend.corporativeEmail, dataSend.mobilePhone, dataSend.residencePhone, dataSend.workPhone, dataSend.workMobilePhone];
         await connection.query(query, values);

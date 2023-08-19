@@ -1,12 +1,12 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { Incidencia } from '../../controller/validateIncidencia.js';
-import { getConnection } from '../connection/connect.js'
+import { connect } from '../connection/connection.js'
 import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError, handleNonExistentError } from '../errors/errors.js'
 
 const getIncidencias = async (req, res) => {
     try {
-        const connection = await getConnection();
+        const connection = await connect();
         const query = 'SELECT * FROM Incidencia';
         const [rows] = await connection.query(query);
         res.json(rows);
@@ -17,7 +17,7 @@ const getIncidencias = async (req, res) => {
 
 const getIncidenciasById = async (req, res) => {
     try {
-        const connection = await getConnection();
+        const connection = await connect();
         const id = req.params.id;
         const query = `SELECT * FROM Incidencia WHERE equipo_id = ?`;
         const [rows] = await connection.query(query, id);
@@ -41,7 +41,7 @@ const addIncidencias = async (req, res) => {
             return;
         }
 
-        const connection = await getConnection();
+const connection = await connect     ();
         const query = `INSERT INTO Incidencia (fecha, descripcion, equipo_id, estado_id, tipo_incidencia, trainer_id, categoria_id) VALUES(?, ?, ?, ?, ?, ?, ?)`;
         const values = [dataSend.date, dataSend.description, dataSend.equipment_id, dataSend.status_id, dataSend.type_incident, dataSend.id_trainer, dataSend.category_id]
         await connection.query(query, values);

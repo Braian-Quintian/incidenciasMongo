@@ -1,12 +1,12 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { Equipo } from '../../controller/validateEquipo.js';
-import { getConnection } from '../connection/connect.js'
+import { connect } from '../connection/connection.js'
 import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError, handleNonExistentError } from '../errors/errors.js'
 
 const getEquipo = async (req, res) => {
     try {
-        const connection = await getConnection();
+        const connection = await connect();
         const query = 'SELECT * FROM Equipo';
         const [rows] = await connection.query(query);
         res.json(rows);
@@ -25,7 +25,7 @@ const addEquipo = async (req, res) => {
             return;
         }
 
-        const connection = await getConnection();
+        const connection = await connect();
         const query = `INSERT INTO Equipo (nombre,salon, marca, modelo, numero_serie) VALUES(?, ?, ?, ?, ?)`;
         const values = [dataSend.name,dataSend.classroom,dataSend.brand, dataSend.model ,dataSend.serial_number];
         await connection.query(query, values);
