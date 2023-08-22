@@ -13,7 +13,7 @@ const getTrainers = async (req,res) => {
     } catch (error) {
         handleInternalServerError(error, res);
     }
-};z
+};
 
 const addTrainer = async (req, res) => {
     try {
