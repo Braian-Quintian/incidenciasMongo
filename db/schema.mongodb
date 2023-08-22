@@ -1,0 +1,81 @@
+use("db_incidenciasMongo");
+db.createCollection("AreaCampus",{
+    validator:{
+        $jsonSchema:{
+            bsonType:"object",
+            required:["area_nombre","area_tipo"],
+            properties:{
+                area_nombre:{ enum: ["Apolo", "Artemis","Sputnik","Skylab","Corvus","Endor"], description:"El tipo de area debe ser una de las opciones y es requerido "},
+                area_tipo:{enum: ["Training","Review"], description:"El tipo de area debe ser una de las opciones y es requerido "} 
+            }
+        }
+    }
+});
+
+
+use("db_incidenciasMongo");
+db.createCollection("Incidencia",{
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["incidencia_id","incidencia_fecha","incidencia_descripcion","equipo_id","incidencia_estado","incidencia_tipo","incidencia_categoria","trainer_id","incidencia_creacion","incidencia_modificacion"],
+            additionalProperties: true,
+            properties:{
+                incidencia_id:{bsonType:"int",description:"El id de la incidencia debe ser un int y es requerido "},
+                incidencia_fecha:{bsonType:"date",description:"La fecha de la incidencia debe ser un date y es requerido "},
+                incidencia_descripcion:{bsonType:"string",description:"La descripcion de la incidencia debe ser un string y es requerido "},
+                equipo_id:{bsonType:"int",description:"El id del equipo debe ser un int y es requerido "},
+                incidencia_estado:{enum: ["Abierta","En proceso","Cerrada","Pendiente de aprobación","Rechazada"], description:"El estado de la incidencia debe ser una de las opciones y es requerido "},
+                incidencia_tipo:{enum: ["Leve","Moderada","Crítica"], description:"El tipo de la incidencia debe ser una de las opciones y es requerido "},
+                incidencia_categoria:{enum: ["Hardware","Software","Redes","Otros"], description:"La categoria de la incidencia debe ser una de las opciones y es requerido "},
+                trainer_id:{bsonType:"int",description:"El id del trainer debe ser un int y es requerido "},
+                incidencia_creacion:{bsonType:"date",description:"La fecha de creacion de la incidencia debe ser un date y es requerido "},
+                incidencia_modificacion:{bsonType:"date",description:"La fecha de modificacion de la incidencia debe ser un date y es requerido "}
+            }
+        }
+    }
+})
+
+use("db_incidenciasMongo");
+db.createCollection("Equipo",{
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["equipo_id","equipo_nombre","equipo_tipo","equipo_marca","equipo_modelo","equipo_serie","equipo_estado","equipo_area","equipo_creacion","equipo_modificacion"],
+            additionalProperties: true,
+            properties: {
+                equipo_id:{bsonType:"int",description:"El id del equipo debe ser un int y es requerido "},
+                equipo_nombre:{bsonType:"string",description:"El nombre del equipo debe ser un string y es requerido "},
+                equipo_tipo:{enum: ["PC","Mouse","Teclado","Audifonos","Otro"], description:"El tipo del equipo debe ser una de las opciones y es requerido "},
+                equipo_marca:{bsonType:"string",description:"La marca del equipo debe ser un string y es requerido "},
+                equipo_modelo:{bsonType:"string",description:"El modelo del equipo debe ser un string y es requerido "},
+                equipo_serie:{bsonType:"string",description:"El numero de serie del equipo debe ser un string y es requerido "},
+                equipo_estado:{enum: ["Activo","Inactivo","En reparación","En mantenimiento","En baja"], description:"El estado del equipo debe ser una de las opciones y es requerido "},
+                equipo_area:{enum: ["Apolo", "Artemis","Sputnik","Skylab","Corvus","Endor"], description:"El area del equipo debe ser una de las opciones y es requerido "},
+                equipo_creacion:{bsonType:"date",description:"La fecha de creacion del equipo debe ser un date y es requerido "},
+                equipo_modificacion:{bsonType:"date",description:"La fecha de modificacion del equipo debe ser un date y es requerido "}
+            }
+        }
+    }
+});
+
+use("db_incidenciasMongo");
+db.createCollection("Trainer",{
+    validator: {
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["trainer_id","trainer_nombre","trainer_emailP","trainer_emailC","trainer_telefonoM"],
+            additionalProperties: true,
+            properties: {
+                trainer_id:{bsonType:"int",description:"El id del trainer debe ser un int y es requerido "},
+                trainer_nombre:{bsonType:"string",description:"El nombre del trainer debe ser un string y es requerido "},
+                trainer_emailP:{bsonType:"string",description:"El email personal del trainer debe ser un string y es requerido "},
+                trainer_emailC:{bsonType:"string",description:"El email corporativo del trainer debe ser un string y es requerido "},
+                trainer_telefonoM:{bsonType:"string",description:"El telefono movil del trainer debe ser un string y es requerido "},
+                trainer_telefonoR:{bsonType:"string",description:"El telefono residencial del trainer debe ser un string y es requerido "},
+                trainer_telefonoE:{bsonType:"string",description:"El telefono de emergencia del trainer debe ser un string y es requerido "},
+                trainer_telefonoEM:{bsonType:"string",description:"El telefono de emergencia del trainer debe ser un string y es requerido "}
+            }
+        }
+    }
+});
