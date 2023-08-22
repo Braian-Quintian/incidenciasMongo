@@ -1,0 +1,71 @@
+use("db_incidenciasMongo");
+db.AreaCampus.insertMany([
+    {
+        area_nombre:'Apolo', 
+        area_tipo: "Training"
+    },
+    {
+        area_nombre:'Artemis', 
+        area_tipo: "Training"
+    },
+    {
+        area_nombre:'Sputnik', 
+        area_tipo: "Training"
+    },
+    {
+        area_nombre:'Skylab', 
+        area_tipo: "Training"
+    },
+    {
+        area_nombre:'Corvus', 
+        area_tipo: "Review"
+    },
+    {
+        area_nombre:'Endor', 
+        area_tipo: "Review"
+    }
+]);
+
+use("db_incidenciasMongo");
+db.Incidencia.insertMany([
+    {
+        incidencia_id:1,
+        incidencia_fecha: new Date("2021-05-01"),
+        incidencia_descripcion:"El equipo no enciende",
+        equipo_id:1,
+        incidencia_estado:"Abierta",
+        incidencia_tipo:"Leve",
+        incidencia_categoria:"Hardware",
+        trainer_id:1,
+        incidencia_creacion: new Date("2021-05-01"),
+        incidencia_modificacion: new Date("2021-05-01")
+    }
+]);
+
+use("db_incidenciasMongo");
+db.Equipo.insertMany([
+    {
+        equipo_id:1,
+        equipo_nombre:"PC-01",
+        equipo_tipo:"PC",
+        equipo_marca:"HP",
+        equipo_modelo:"HP-01",
+        equipo_serie:"HP-01",
+        equipo_estado:"Activo",
+        equipo_area:"Apolo",
+        equipo_creacion: new Date("2021-05-01"),
+        equipo_modificacion: new Date("2021-05-01")
+    }
+]);
+
+use("db_incidenciasMongo");
+db.Trainer.insertMany([
+    {
+        trainer_id:1,
+        trainer_nombre:"Juan",
+        trainer_emailP:"juan@",
+        trainer_emailC:"juan@",
+        trainer_telefonoM:"12345678",
+        trainer_telefonoR:"12345678",
+    }
+]);
