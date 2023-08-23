@@ -6,18 +6,21 @@ export let limitLogin = ()=>{
         max: 3,
         standardHeaders: true, 
         legacyHeaders: false, 
-        skip: (req,res)=>{
-            if(req.headers["content-length"]>30){
-                res.status(413).send({
-                    message: "Tamaño de la solicitud alcanzado"
-                });
+        skip: (req,res)=>{if(req.headers["content-length"]>30){res.status(413).send({message: "Tamaño de la solicitud alcanzado"});
                 return true;
             }
         }, 
-        message: (req,res)=>{
-            res.status(429).send({
-                message: "Limite alcanzado"
-            });
+        message: (req,res)=>{res.status(429).send({message: "Limite alcanzado"});
         }
     })    
+}
+export let limitEquipos = ()=>{
+    return rateLimit({
+        windowMs: 30 * 1000,
+        max: 5,
+        standardHeaders: true, 
+        legacyHeaders: false, 
+        message: (req,res)=>{res.status(429).send({message: "Limite alcanzado"});
+        }
+    })
 }
