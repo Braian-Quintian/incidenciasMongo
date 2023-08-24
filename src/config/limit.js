@@ -14,7 +14,7 @@ export let limitLogin = ()=>{
         }
     })    
 }
-export let limitEquipos = ()=>{
+export let limitEquiposG = ()=>{
     return rateLimit({
         windowMs: 30 * 1000,
         max: 5,
