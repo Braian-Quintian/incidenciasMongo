@@ -62,7 +62,7 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
 
 1. ¡Felicitaciones!, ya has iniciado el servidor y la base de datos y puedes proceder a  utilizar los endpoints
 
-2. `NOTA`: Para utilizar los endpoints recuerda que debes tener un token que se genera con el endpoint `/autorizacion` (en la siguienta parte se te muestra como puedes pedir el token y utilizarlo)
+2. `NOTA`: Para utilizar los endpoints recuerda que debes tener un token que se genera con el endpoint `/login` (en la siguienta parte se te muestra como puedes pedir el token y utilizarlo)
 
 ### Observacion: Para hacer los endpoints y generar los token debes tener ThunderClient instalado en visual studio code
 
