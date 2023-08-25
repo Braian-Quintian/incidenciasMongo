@@ -1,7 +1,8 @@
+import { validationResult } from "express-validator";
 import { connect } from '../../connection/connection.js'
 const db = await connect();
 
-export const equipoV1 = async (req, res, next) => {
+export const getTrainerAll = async (req, res, next) => {
     if(!req.rateLimit) return; 
     try{
         const result = await db.collection('Equipo').aggregate([
@@ -27,12 +28,14 @@ export const equipoV1 = async (req, res, next) => {
     }
 }
 
-export const equipoV1_1 = async (req, res, next) => {
-  console.log("Tamos en el post");
-  // if(!req.rateLimit) return; 
-  // try {
-    
-  // } catch (error) {
-    
-  // } 
+export const addTrainer = async (req, res, next) => {
+  if(!req.rateLimit) return;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+  try {
+    const result = await db.collection('Equipo').insertOne(req.body);
+    res.status(201).json(result.ops[0]);
+  } catch (error) {
+    console.log(error);
+  } 
 }
