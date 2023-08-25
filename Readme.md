@@ -127,9 +127,13 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
 - Una vez que hayas implementado el token puedes proceder a utilizar los endpoints.
 
 **TENER EN CUENTA:**
+
   `NOTA`: recuerda que el token solamente dura `3h`  después de este tiempo tendrás que pedir otro
+
   `NOTA`: El token solo servira para la collection que lo solicitaste, junto con los permisos que tienes acceso
+
   `NOTA`: Si presentas algun error al momento de solicitar el token, revisa que hayas ingresado correctamente los datos, si el error persiste, revisa que estes escribriendo correctamente la palabra `Bearer`
+  
 
 - **LIMITES DE PETICION DE ENPOINTS**
   
