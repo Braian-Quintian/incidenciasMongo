@@ -70,26 +70,51 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
 
   `NOTA`: Antes de utilizar cualquier endpoint debes pedir primero un token de autorizacion, se recomienda que lo guardes en un archivo de texto.
 
-  *Obeservacion* el token solamente dura `30m`  después de este tiempo tendrás que pedir otro
+  *Obeservacion* el token solamente dura `3h`  después de este tiempo tendrás que pedir otro
 
   Este es el ejemplo para solicitar un token:
-  ![token](/assets/img/pedirToken.png)
+  
+  Debes colocar la version del api:
+  
+  Que por el momento para el Login solo está la version `1.0.0` 
 
-  - El `:id` es el id del usuario (por el momento puede ser cualquiera)
-  - El `nombre_de_la_collection` es el nombre de la collection en la base de datos
+  ![ApiVersion](/assets/img/apiVersion.png)
 
+  Si no especificas el api version `1.0.0` te dara un error `422` ya que está diseñado para que un futuro se puedan agregar mas versiones del api.
+
+  ![ApiVersion](/assets/img/errorApiVersion.png)
+  
+  Para generar un token para un trainer es mediante la C.C. enviadola por el body con un method `POST`
+
+  `Observacion`: La C.C. se envia como este ejemplo:
+
+  ```json
+  {
+    "cc": 1234567890
+  }
+  ```
+  `Observacion`:  la cc se envia como un entero, sin comillas
+  
+  ![Ejemplo](/assets/img/EJEMPLO-login.png)
+
+  si el usuario no está previamente registrado, mostrará un error `403` y deberás registrarlo en la base de datos para poder generar el token. **(Más adelante se muestra como registrar un usuario)**; Aquí se muestra el error
+
+  ![Ejemplo](/assets/img/envio-cedula.png)
+
+  Si el usuario está registrado, se generará un token de autorización que deberás utilizar para acceder a los endpoints protegidos.
+  `NOTA`: Este token solamente funcionará para las collection que tenga acceso dicho usuario.
+
+  ![Solicitud_Correcta](/assets/img/tokenCorrecto.png)
+  
   `NOTA`: No olvides reemplazar el `localhost` por la ip de tu servidor y el `5050` por el puerto que hayas definido en las variables de entorno, u/o que se estes utilizando.
 
 ```shell
-  http://localhost:5050/autorizacion/:id/:nombre?tabla=nombre_de_la_tabla
+  http://localhost:5050/login
 ```
-
-`SPOILER`: se tiene pensado en el futuro reemplazar `:id` por el id de google al momento de generar el token, pero por el momento se queda así.
-
 - Implementación del Token
     ![generar-token](assets/img/generar-token.png)
-- Copia el token, ejemplo:
-    - `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqc29uIjp7ImlkIjoiMTIzIiwibm9tYnJlIjoidXNlciIsImVuZHBvaW50Ijp7InRhYmxhIjoicm9sZXMifX0sImlhdCI6MTY5MDQ4MzExNywiZXhwIjoxNjkwNDg2NzE3fQ.2Mk17IBYsAmZi-e19E26E1oyObY43OBjBXK52ME8jvM`
+- Tendrás un token parecido a esto así, ejemplo:
+    - `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijy0ZtY1NdR5MT533Ga1yJezNTYyoWVjoCIsImlhdCI6MTY5Mjk4MzU1MywiZXhwIjoxNjkyOTk0MzUzfQ.tbRBaKnedg6g-hfkD_8lRzwO9qbcb1lPZO5lIQNeK7`
 
 - Luego debe colocar en la pestaña Headers de la siguiente manera:
   
@@ -97,20 +122,23 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
 
     ![implementacion-token](/assets/img/implementacion-token.png)
 
-- y pega el token que habias copiado previamente:
+- y pega el token que habias copiado previamente, Interponiendo de primero antes de colocar el token la palabra `Bearer` y un espacio, luego el token así:
 
     ![token-implementado](/assets/img/token-implementado.png)
 
 - Una vez que hayas implementado el token puedes proceder a utilizar los endpoints.
 
 **TENER EN CUENTA:**
-  `NOTA`: recuerda que el token solamente dura `30m`  después de este tiempo tendrás que pedir otro
-  `NOTA`: El token solo servira para la collection que lo solicitaste, si quieres acceder a otra collection deberas solicitar otro token y repetir el mismo proceso para implementarlo.
-  `NOTA`: Si presentas algun error al momento de solicitar el token, revisa que hayas ingresado correctamente los datos, si el error persiste, revisa que la collection que estas solicitando exista en la base de datos.
+  `NOTA`: recuerda que el token solamente dura `3h`  después de este tiempo tendrás que pedir otro
+  `NOTA`: El token solo servira para la collection que lo solicitaste, junto con los permisos que tienes acceso
+  `NOTA`: Si presentas algun error al momento de solicitar el token, revisa que hayas ingresado correctamente los datos, si el error persiste, revisa que estes escribriendo correctamente la palabra `Bearer`
 
 - **LIMITES DE PETICION DE ENPOINTS**
   
-  `NOTA`: Los endpoints tienen un limite de peticiones por minuto, si se excede el limite de peticiones por minuto, el servidor respondera con un error 429, si esto sucede, espera un minuto y vuelve a intentarlo.
+  `NOTA`: Los endpoints tienen un limite de peticiones, si se excede el limite de peticiones por minuto, el servidor respondera con un error 429, si esto sucede, espera y vuelve a intentarlo.
+  **Cabe mencionar que el limit para cada endpoint es distinto por lo tanto no se proporciona informacion de cuanto tiempo tendrás que esperar para volver a intentarlo**
+
+  `Observacion`: Para el enpoint de `/login` tienes 3 intentos, después de eso tendrás que esperar una hora para volver a intentarlo.
 
 # Endpoints de Incidencias Técnicas
 
