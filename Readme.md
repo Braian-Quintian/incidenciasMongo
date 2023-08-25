@@ -18,8 +18,8 @@ Este proyecto es un sistema de gestión de incidencias técnicas, diseñado para
 - Node.js como plataforma de ejecución.
 - Express.js para la creación del servidor web.
 - Mongodb para la base de datos.
-- TypeScript para un desarrollo más estructurado.
-- class-transformer y class-validator para la validación y transformación de datos.
+- > TypeScript para un desarrollo más estructurado.  (Ya no se utiliza)
+- > class-transformer y class-validator para la validación y transformación de datos. (Ya no se utiliza)
 - dotenv para la gestión de variables de entorno.
 - nodemon para reiniciar automáticamente el servidor en desarrollo.
 
@@ -56,54 +56,13 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
 
   ![npm-run-install](/assets/img/npm-run-install.png)
 
-7. Ejecuta el comando `npx tsc --init` para crear el archivo de configuracion de typescript
-
-  ![tsc-init](/assets/img/tsc-init.png)
-
-  cambia todo el contenido del archivo tsconfig.json por este json:
-
-  ![tsconfig.json](/assets/img/tsconfig.png)
-
-```json
-{
-  "compilerOptions": {
-    "target": "es6",
-    "module": "ES6",
-    "moduleResolution": "node",
-    "outDir": "./src/routes/validation/",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  },
-  "include": [
-    "./src/typescript/*.ts"
-  ],
-  "exclude": [
-    "src/routes/validation/*.js"
-  ]
-}
-```
-
-`NOTA`:En caso de tener un error como este:
-  ![error](/assets/img/error-env.png)
-
-`SOLUCION`: Simplemente borra los espacios sobrantes.
-
-![solucion](/assets/img/solucion.png)
-
-8. Ejecuta el comando `npm run tsc` para compilar el proyecto y se creará una carpeta llamada controller que contendra la validacion de toda la data.
-  ![npm-run-tsc](/assets/img/npm-run-tsc.png)
-
-9. Una vez que finalice de compilar los archivos, termina el proceso precionando Ctrl + C
-  ![terminar-proceso](/assets/img/terminar-proceso.png)
-
-10. Ejecuta el comando `npm run dev` para iniciar el servidor
+7. Ejecuta el comando `npm run dev` para iniciar el servidor
 
 ​	 ![npm-install](/assets/img/npm-run-dev.png)
 
 1. ¡Felicitaciones!, ya has iniciado el servidor y la base de datos y puedes proceder a  utilizar los endpoints
 
-2. `NOTA`: Para utilizar los endpoints recuerda que debes tener un token que se genera con el endpoint `/autorizacion` (en la siguienta parte se te muestra como puedes pedir el token y utilizarlo
+2. `NOTA`: Para utilizar los endpoints recuerda que debes tener un token que se genera con el endpoint `/autorizacion` (en la siguienta parte se te muestra como puedes pedir el token y utilizarlo)
 
 ### Observacion: Para hacer los endpoints y generar los token debes tener ThunderClient instalado en visual studio code
 
@@ -150,7 +109,7 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
   `NOTA`: Si presentas algun error al momento de solicitar el token, revisa que hayas ingresado correctamente los datos, si el error persiste, revisa que la collection que estas solicitando exista en la base de datos.
 
 - **LIMITES DE PETICION DE ENPOINTS**
-    
+  
   `NOTA`: Los endpoints tienen un limite de peticiones por minuto, si se excede el limite de peticiones por minuto, el servidor respondera con un error 429, si esto sucede, espera un minuto y vuelve a intentarlo.
 
 # Endpoints de Incidencias Técnicas
