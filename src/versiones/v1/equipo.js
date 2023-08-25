@@ -26,3 +26,13 @@ export const equipoV1 = async (req, res, next) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const equipoV1_1 = async (req, res, next) => {
+  console.log("Tamos en el post");
+  // if(!req.rateLimit) return; 
+  // try {
+    
+  // } catch (error) {
+    
+  // } 
+}
