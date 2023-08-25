@@ -1,17 +1,19 @@
 import routesVersioning from 'express-routes-versioning';
+import validarVersionMiddleware from '../security/validarVersionMiddleware.js'; // Ruta correcta al middlewar
 import { Router } from 'express';
 import { limitEquiposG } from '../config/limit.js';
-import { equipoV1, equipoV1_1 } from '../versiones/v1/equipo.js';
+import { getTrainerAll, addTrainer } from '../versiones/v1/equipo.js';
+import { validateEquipo } from '../dist/equipo.js';
 
 const equiposRouter = Router();
 const version = routesVersioning();
 
-equiposRouter.get('/',limitEquiposG(), version({
-    "1.0.0": equipoV1
+equiposRouter.get('/',limitEquiposG(),validarVersionMiddleware, version({
+    "1.0.0": getTrainerAll
 }));
 
-equiposRouter.post('/',limitEquiposG(), version({
-    "1.0.0": equipoV1_1
+equiposRouter.post('/',validateEquipo,limitEquiposG(),validarVersionMiddleware, version({
+    "1.0.0": addTrainer
 }));
 
 export default equiposRouter;
