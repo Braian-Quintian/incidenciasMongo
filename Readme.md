@@ -74,9 +74,7 @@ Se usó la `v18.16.1` de NojeJS para este proyecto
 
   Este es el ejemplo para solicitar un token:
   
-  Debes colocar la version del api:
-  
-  Que por el momento para el Login solo está la version `1.0.0` 
+  `Observacion` Debes colocar la version del api, por el momento para el Login solo está la version `1.0.0` 
 
   ![ApiVersion](/assets/img/apiVersion.png)
 
