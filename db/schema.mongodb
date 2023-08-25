@@ -79,8 +79,19 @@ db.createCollection("Trainer",{
                 trainer_rol:{enum: ["Trainer","Admin"], description:"El rol del trainer debe ser una de las opciones y es requerido "},
                 trainer_permisos: {bsonType: 'object',description: "Ingrese los permisos",required:["/incidencias"],
                     additionalProperties:{
-                       bsonType: "array",
-                        description: "Ingrese la version autorizada",
+                       bsonType: "object",
+                       description: "Información sobre el permiso y la versión autorizada",
+                       properties: {
+                        version: {
+                            bsonType: "string",
+                            description: "Ingrese la versión autorizada"
+                        },
+                        method: {
+                            bsonType: "string",
+                            description: "Método autorizado (GET, POST, PUT, DELETE, etc.)",
+                            enum: ["GET", "POST", "PUT", "DELETE"]
+                        }
+                    }
                     }
                 }
             }
@@ -89,24 +100,28 @@ db.createCollection("Trainer",{
 });
 
 use("db_incidenciasMongo");
-db.Trainer.insertMany([
-    {   
-        trainer_id:1,
-        trainer_cc:123456,
-        trainer_nombre: "Braian",
-        trainer_emailP: "a@a",
-        trainer_emailC:"a@a",
-        trainer_telefonoM: "231456",
-        trainer_telefonoR:"231456",
-        trainer_telefonoE:"231456",
-        trainer_telefonoEM:"231456",
-        trainer_rol:"Admin",
-        trainer_permisos:{
-            "/incidencias": ["*"],
-            "/equipos": ["1.0.0"],
+db.Trainer.insertOne({
+    trainer_id: 1,
+    trainer_cc: 12,
+    trainer_nombre: "Braian",
+    trainer_emailP: "a@a",
+    trainer_emailC: "a@a",
+    trainer_telefonoM: "231456",
+    trainer_telefonoR: "231456",
+    trainer_telefonoE: "231456",
+    trainer_telefonoEM: "231456",
+    trainer_rol: "Admin",
+    trainer_permisos: {
+        "/incidencias": {
+            version: "*",
+            method: "GET"
+        },
+        "/equipos": {
+            version: "*",
+            method: "GET"
         }
     }
-]);
+});
 
 use("db_incidenciasMongo");
 db.Trainer.find({trainer_cc: 1127939990,"trainer_permisos./equipos": { $exists: true, $in: ['*'] }}).pretty();
