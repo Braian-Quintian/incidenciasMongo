@@ -50,23 +50,34 @@ const validarToken = async (req, token) => {
     try {
         const encoder = new TextEncoder();
         const jwtData = await jwtVerify(token, encoder.encode(conexion.token));
+        
         // Buscar los permisos del usuario en la colección correspondiente
         const userPermissions = await db.collection('Trainer').findOne({
             _id: new ObjectId(jwtData.payload.id),
             [`trainer_permisos.${req.baseUrl}`]: { $exists: true }
         });
-        // Verificar los permisos del usuario
-        const requiredPermissions = userPermissions.trainer_permisos[req.baseUrl];
-        if (requiredPermissions.includes('*') || requiredPermissions.includes(req.headers["accept-version"])) {
-            const {_id, permisos, ...usuario} = userPermissions;
-            return usuario;
-        } else {
-            throw new Error("El usuario no tiene los permisos necesarios");
+
+        // Verificar los permisos del usuario para la ruta específica
+        const routePermissions = userPermissions.trainer_permisos[req.baseUrl];
+        
+        if (routePermissions) {
+            const acceptVersion = req.headers["accept-version"];
+            const method = req.method;
+            if (
+                (routePermissions.version === '*' || routePermissions.version === acceptVersion) &&
+                (routePermissions.method === '*' || routePermissions.method === method)
+            ) {
+                const { _id, permisos, ...usuario } = userPermissions;
+                return usuario;
+            }
         }
+        throw new Error("El usuario no tiene los permisos necesarios");
     } catch (error) {
         return false; // Devolver false en caso de error
     }
 }
+
+
 
 export {
     createToken,
